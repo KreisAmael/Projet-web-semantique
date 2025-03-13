@@ -1,0 +1,23 @@
+@prefix ns1: <http://example.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ns1:2_years a ns1:Person ;
+    rdfs:label "2 years" .
+
+ns1:Amazon a ns1:Organization ;
+    rdfs:label "Amazon" .
+
+ns1:Jeff a ns1:Person ;
+    rdfs:label "Jeff" .
+
+ns1:Duration a ns1:Duration ;
+    rdfs:label "Duration" .
+
+ns1:Organization a ns1:Organization ;
+    rdfs:label "Organization" .
+
+ns1:Person a ns1:Person ;
+    rdfs:label "Person" ;
+    ns1:hasDuration ns1:Duration ;
+    ns1:worksFor ns1:Organization .
+
