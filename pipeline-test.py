@@ -106,49 +106,127 @@ def get_best_match(extracted_triplet, ontology_triplets, threshold=0.7):
 # Assign classes to entities based on relation frequency and similarity
 def assign_classes(entities, matched_triplets, ontology_classes):
     entity_classes = {}
-    entity_votes = Counter()
+    entity_to_classify = entities.copy()
+    triplet_remaining = matched_triplets.copy()
 
-    # Count occurrences of each entity in relations
-    for subj, rel, obj in matched_triplets:
-        entity_votes[subj] += 1
-        entity_votes[obj] += 1
+    print("Entities:",entities)
+    print("Matched triplet:",matched_triplets)
+    print("Ontology classes:",ontology_classes)
 
-    # Assign most frequent entity classes first
-    for entity, _ in entity_votes.most_common():
-        for subj, rel, obj in matched_triplets:
-            if entity == subj:
-                entity_classes[entity] = subj
-            elif entity == obj:
-                entity_classes[entity] = obj
+    while len(entity_to_classify) != 0 and len(triplet_remaining) != 0:
+        entity_votes = Counter()
 
-    # Assign remaining entities using similarity
-    for entity, label in entities:
-        if entity not in entity_classes:
-            best_match = get_best_match((entity, "type", "?"), [(get_last_part(cls), "type", get_last_part(cls)) for cls in ontology_classes], threshold=0.25)
-            if best_match:
-                entity_classes[entity] = best_match[0]
+        # Step 1: Count how many times each extracted entity could match an ontology class
+        entity_set = {entity for entity, _ in entity_to_classify}
+        for (subj, _, obj), (_, _, _) in triplet_remaining:
+            if subj in entity_set:
+                entity_votes[subj] += 1
+            if obj in entity_set:
+                entity_votes[obj] += 1
+
+        print("Vote:",entity_votes)
+        print("Most common:",entity_votes.most_common(1)[0][0])
+
+        entity = entity_votes.most_common(1)[0][0]
+
+        #Finding the most common entity to classify it
+        index = 0
+        for i, e in enumerate(entity_to_classify):
+            if e[0] == entity:
+                index = i
+                break
+        
+        print("Index:", index)
+        entity_to_classify.pop(index)
+        all_matched_classes = []
+
+        for triplet_pair in triplet_remaining:
+            if triplet_pair[0][0] == entity or triplet_pair[0][2] == entity:
+                all_matched_classes.append(triplet_pair)
+        
+        print("Matching classes: ", all_matched_classes)
+        class_votes = Counter()
+
+        #finding the class that correspond to the most relations
+        for (subj, _, obj), (sclass, _, oclass) in all_matched_classes:
+            if subj == entity:
+                class_votes[sclass] += 1
+            if obj == entity:
+                class_votes[oclass] += 1
+        
+        print("Class votes:",class_votes)
+        print("Best class:", class_votes.most_common(1))
+        best_class = class_votes.most_common(1)[0][0]
+        entity_classes[entity] = best_class
+
+        #removing relations with the wrong class for the entity
+        for (subj, rel1, obj), (sclass, rel2, oclass) in all_matched_classes:
+            if subj == entity and sclass != best_class:
+                triplet_remaining.remove(((subj, rel1, obj), (sclass, rel2, oclass)))
+            if obj == entity and oclass != best_class:
+                triplet_remaining.remove(((subj, rel1, obj), (sclass, rel2, oclass)))
+        
+        #removing relations where both entities are clissified
+        for (subj, rel1, obj), (sclass, rel2, oclass) in triplet_remaining:
+            if subj in entity_classes and obj in entity_classes:
+                triplet_remaining.remove(((subj, rel1, obj), (sclass, rel2, oclass)))
+
+        print('\033[36m',"Remaining entities:", entity_to_classify,'\033[0m')
+        print('\033[36m',"Remaining relations:", triplet_remaining,'\033[0m')
+
+
+    # # Step 2: Assign classes based on majority votes
+    # for entity, label in entities:
+    #     best_class = None
+    #     max_votes = 0
+
+    #     # Look at how often the entity appears in matched relations
+    #     for subj, rel, obj in matched_triplets:
+    #         if entity == subj and obj in ontology_classes:
+    #             if entity_votes[obj] > max_votes:
+    #                 best_class = obj
+    #                 max_votes = entity_votes[obj]
+    #         elif entity == obj and subj in ontology_classes:
+    #             if entity_votes[subj] > max_votes:
+    #                 best_class = subj
+    #                 max_votes = entity_votes[subj]
+
+    #     # Assign best class if found
+    #     if best_class:
+    #         entity_classes[entity] = best_class
 
     return entity_classes
+
+
 
 # Build RDF graph using valid triplets and classes
 def build_rdf_graph(valid_entities, matched_triplets):
     new_graph = Graph()
-    ex = Namespace("http://example.org/")
+    ex = Namespace("http://output.org/")
+    
+    print("Valid entities:", valid_entities)
+    print("Matched triplets:", matched_triplets)
 
+    # Step 1: Add entities with their assigned classes
     for entity, cls in valid_entities.items():
         entity_uri = ex[entity.replace(" ", "_")]
         class_uri = ex[cls]
+        
         new_graph.add((entity_uri, RDF.type, class_uri))
-        new_graph.add((entity_uri, RDFS.label, Literal(entity)))
+        new_graph.add((entity_uri, RDFS.label, Literal(entity)))  # Preserve entity names
 
-    for subj, rel, obj in matched_triplets:
-        if subj in valid_entities and obj in valid_entities:
-            subj_uri = ex[subj.replace(" ", "_")]
-            obj_uri = ex[obj.replace(" ", "_")]
-            rel_uri = ex[rel]
+    # Step 2: Add valid relations (ontology-aligned)
+    for (subj_text, extracted_rel, obj_text), (subj_cls, ontology_rel, obj_cls) in matched_triplets:
+        if subj_text in valid_entities and obj_text in valid_entities:
+            subj_uri = ex[subj_text.replace(" ", "_")]
+            obj_uri = ex[obj_text.replace(" ", "_")]
+            rel_uri = ex[ontology_rel]  # 🔹 Use ontology-mapped relation (not raw extracted one)
+
             new_graph.add((subj_uri, rel_uri, obj_uri))
 
     return new_graph
+
+
 
 # Main function
 def main():
@@ -160,7 +238,7 @@ def main():
     ontology_classes, ontology_properties, ontology_triplets = extract_ontology_triplets(ontology_graph)
 
     # Input text
-    text = "Jeff was working for Amazon during 2 years."
+    text = "Jeff was working for Amazon during 2 years. Jeff loves icecream."
 
     # Extract entities and relations
     entities, relations = extract_entities_and_relations(text)
@@ -172,7 +250,7 @@ def main():
     for triplet in relations:
         best_match = get_best_match(triplet, ontology_triplets, threshold=0.25)
         if best_match:
-            matched_triplets.append(best_match)
+            matched_triplets.append((triplet,best_match))
 
     print("Matched Triplets:", matched_triplets)
 
@@ -184,6 +262,7 @@ def main():
     new_graph = build_rdf_graph(valid_entities, matched_triplets)
     new_graph.serialize("output_graph.ttl", format="turtle")
     print("New RDF graph saved to 'output_graph.ttl'.")
+    new_graph.print()
 
 if __name__ == "__main__":
     main()
