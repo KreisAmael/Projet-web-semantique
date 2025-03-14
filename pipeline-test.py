@@ -171,29 +171,16 @@ def assign_classes(entities, matched_triplets, ontology_classes):
             if subj in entity_classes and obj in entity_classes:
                 triplet_remaining.remove(((subj, rel1, obj), (sclass, rel2, oclass)))
 
+        #removing entities that have no relations
+        object_set = {subj for (subj, rel1, obj), (sclass, rel2, oclass) in triplet_remaining}
+        object_set.update({obj for (subj, rel1, obj), (sclass, rel2, oclass) in triplet_remaining})
+        print("Set: ", object_set)
+        for e, label in entity_to_classify:
+            if not e in object_set:
+                entity_to_classify.remove((e, label))
+
         print('\033[36m',"Remaining entities:", entity_to_classify,'\033[0m')
         print('\033[36m',"Remaining relations:", triplet_remaining,'\033[0m')
-
-
-    # # Step 2: Assign classes based on majority votes
-    # for entity, label in entities:
-    #     best_class = None
-    #     max_votes = 0
-
-    #     # Look at how often the entity appears in matched relations
-    #     for subj, rel, obj in matched_triplets:
-    #         if entity == subj and obj in ontology_classes:
-    #             if entity_votes[obj] > max_votes:
-    #                 best_class = obj
-    #                 max_votes = entity_votes[obj]
-    #         elif entity == obj and subj in ontology_classes:
-    #             if entity_votes[subj] > max_votes:
-    #                 best_class = subj
-    #                 max_votes = entity_votes[subj]
-
-    #     # Assign best class if found
-    #     if best_class:
-    #         entity_classes[entity] = best_class
 
     return entity_classes
 
@@ -238,7 +225,7 @@ def main():
     ontology_classes, ontology_properties, ontology_triplets = extract_ontology_triplets(ontology_graph)
 
     # Input text
-    text = "Jeff was working for Amazon during 2 years. Jeff loves icecream."
+    text = "Jeff was working for Amazon during 2 years. Jeff loves icecream. Amazon bought Twitch. Simon has a job in the company named Twitch."
 
     # Extract entities and relations
     entities, relations = extract_entities_and_relations(text)

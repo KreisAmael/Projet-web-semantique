@@ -5,7 +5,7 @@ from spacy import displacy
 nlp = spacy.load("en_core_web_lg")
 
 # Input text
-text = "Jeff is working at Amazon."
+text = "Jeff was working for Amazon during 2 years. Jeff loves icecream. Amazon bought Twitch. Twitch hiered Simon."
 
 # Process the text
 doc = nlp(text)

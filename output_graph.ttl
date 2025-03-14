@@ -6,6 +6,9 @@ ns1:Jeff a ns1:Person ;
     ns1:hasDuration ns1:2_years ;
     ns1:worksFor ns1:Amazon .
 
+ns1:Simon a ns1:Person ;
+    rdfs:label "Simon" .
+
 ns1:2_years a ns1:Duration ;
     rdfs:label "2 years" .
 
