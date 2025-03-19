@@ -1,0 +1,46 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix ex: <http://example.org/> .
+
+### Classes
+ex:Person a rdfs:Class .
+ex:Organization a rdfs:Class .
+ex:Duration a rdfs:Class .
+ex:Skill a rdfs:Class .
+ex:Project a rdfs:Class .
+ex:Role a rdfs:Class .
+ex:Location a rdfs:Class .
+ex:Event a rdfs:Class .
+
+ex:worksFor a rdf:Property ;
+    rdfs:domain ex:Person ;
+    rdfs:range ex:Organization .
+
+ex:hasDuration a rdf:Property ;
+    rdfs:domain ex:Person ;
+    rdfs:range ex:Duration .
+
+ex:hasSkill a rdf:Property ;
+    rdfs:domain ex:Person ;
+    rdfs:range ex:Skill .
+
+ex:worksOn a rdf:Property ;
+    rdfs:domain ex:Person ;
+    rdfs:range ex:Project .
+
+ex:hasRole a rdf:Property ;
+    rdfs:domain ex:Person ;
+    rdfs:range ex:Role .
+
+ex:locatedIn a rdf:Property ;
+    rdfs:domain ex:Organization ;
+    rdfs:range ex:Location .
+
+ex:organizes a rdf:Property ;
+    rdfs:domain ex:Organization ;
+    rdfs:range ex:Event .
+
+ex:participatesIn a rdf:Property ;
+    rdfs:domain ex:Person ;
+    rdfs:range ex:Event .

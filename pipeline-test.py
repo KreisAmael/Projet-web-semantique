@@ -124,6 +124,8 @@ def assign_classes(entities, matched_triplets, ontology_classes):
             if obj in entity_set:
                 entity_votes[obj] += 1
 
+        if entity_votes == Counter() :
+            break
         print("Vote:",entity_votes)
         print("Most common:",entity_votes.most_common(1)[0][0])
 
@@ -231,14 +233,14 @@ def build_rdf_graph(valid_entities, matched_triplets):
 # Main function
 def main():
     # Load ontology
-    ontology_file = "ontology.ttl"
+    ontology_file = "ontology_complex.ttl"
     ontology_graph = load_rdf_graph(ontology_file)
 
     # Extract ontology triplets
     ontology_classes, ontology_properties, ontology_triplets = extract_ontology_triplets(ontology_graph)
 
     # Input text
-    text = "Jeff was working for Amazon during 2 years. Jeff loves icecream."
+    text = "John Doe works for Acme Corp as a Project Manager and has been there for two years. He is skilled in Programming and Leadership and is currently working on Project X. He is also participating in the Tech Conference 2023. Alice Smith is employed by Tech Solutions as a Senior Data Scientist. She has skills in Data Analysis and Project Management and is involved in the AI Development project. She will attend the AI Summit next month. Bob Johnson is the Chief Technology Officer at Global Innovations. He has expertise in Machine Learning and Cloud Computing and is leading the Blockchain Initiative. He is a speaker at the Future Tech Expo. Acme Corp is located in New York and organizes the Tech Conference 2023. Tech Solutions has its headquarters in San Francisco and is hosting the AI Summit. Global Innovations operates from London and is planning the Future Tech Expo."
 
     # Extract entities and relations
     entities, relations = extract_entities_and_relations(text)

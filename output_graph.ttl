@@ -1,14 +1,40 @@
 @prefix ns1: <http://output.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-ns1:Jeff a ns1:Person ;
-    rdfs:label "Jeff" ;
-    ns1:hasDuration ns1:2_years ;
-    ns1:worksFor ns1:Amazon .
+ns1:Alice_Smith a ns1:Person ;
+    rdfs:label "Alice Smith" ;
+    ns1:worksFor ns1:Senior_Data_Scientist .
 
-ns1:2_years a ns1:Duration ;
-    rdfs:label "2 years" .
+ns1:Global_Innovations a ns1:Organization ;
+    rdfs:label "Global Innovations" ;
+    ns1:locatedIn ns1:London .
 
-ns1:Amazon a ns1:Organization ;
-    rdfs:label "Amazon" .
+ns1:John_Doe a ns1:Person ;
+    rdfs:label "John Doe" ;
+    ns1:worksFor ns1:Acme_Corp .
+
+ns1:Machine_Learning_and_Cloud_Computing a ns1:Skill ;
+    rdfs:label "Machine Learning and Cloud Computing" .
+
+ns1:Tech_Solutions a ns1:Organization ;
+    rdfs:label "Tech Solutions" .
+
+ns1:the_AI_Summit a ns1:Event ;
+    rdfs:label "the AI Summit" .
+
+ns1:the_Tech_Conference_2023 a ns1:Event ;
+    rdfs:label "the Tech Conference 2023" .
+
+ns1:Acme_Corp a ns1:Organization ;
+    rdfs:label "Acme Corp" ;
+    ns1:locatedIn ns1:New_York .
+
+ns1:London a ns1:Location ;
+    rdfs:label "London" .
+
+ns1:New_York a ns1:Location ;
+    rdfs:label "New York" .
+
+ns1:Senior_Data_Scientist a ns1:Organization ;
+    rdfs:label "Senior Data Scientist" .
 

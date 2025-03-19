@@ -1,0 +1,16 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix pizza: <http://example.org/pizza#> .
+
+pizza:Pizza rdf:type rdfs:Class .
+pizza:Ingredient rdf:type rdfs:Class .
+pizza:Topping rdf:type rdfs:Class .
+pizza:Base rdf:type rdfs:Class .
+
+pizza:hasTopping rdf:type rdf:Property ;
+    rdfs:domain pizza:Pizza ;
+    rdfs:range pizza:Topping .
+
+pizza:hasBase rdf:type rdf:Property ;
+    rdfs:domain pizza:Pizza ;
+    rdfs:range pizza:Base .

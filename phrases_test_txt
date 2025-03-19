@@ -1,0 +1,9 @@
+- Pour l'ontologie ontology_complex.ttl :
+    John Doe works for Acme Corp as a Project Manager and has been there for two years. He is skilled in Programming and Leadership and is currently working on Project X. He is also participating in the Tech Conference 2023. Alice Smith is employed by Tech Solutions as a Senior Data Scientist. She has skills in Data Analysis and Project Management and is involved in the AI Development project. She will attend the AI Summit next month. Bob Johnson is the Chief Technology Officer at Global Innovations. He has expertise in Machine Learning and Cloud Computing and is leading the Blockchain Initiative. He is a speaker at the Future Tech Expo. Acme Corp is located in New York and organizes the Tech Conference 2023. Tech Solutions has its headquarters in San Francisco and is hosting the AI Summit. Global Innovations operates from London and is planning the Future Tech Expo.
+
+Celui ci il fonctionne mais pas très bien.
+
+
+- Pour l'ontologie pizza : 
+    The Margherita pizza is a classic pizza. Margherita has a tomato sauce base and is topped with mozzarella. The Pepperoni pizza is another popular pizza variety, with tomato sauce, mozzarella, and pepperoni. The Savoyarde is a white base pizza, which uses a creamy garlic sauce instead of tomato sauce, topped with mozzarella, spinach, and ricotta cheese.
+Celui ci ne fonctionne pas du tout.
