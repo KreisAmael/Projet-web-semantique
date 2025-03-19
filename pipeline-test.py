@@ -173,29 +173,16 @@ def assign_classes(entities, matched_triplets, ontology_classes):
             if subj in entity_classes and obj in entity_classes:
                 triplet_remaining.remove(((subj, rel1, obj), (sclass, rel2, oclass)))
 
+        #removing entities that have no relations
+        object_set = {subj for (subj, rel1, obj), (sclass, rel2, oclass) in triplet_remaining}
+        object_set.update({obj for (subj, rel1, obj), (sclass, rel2, oclass) in triplet_remaining})
+        print("Set: ", object_set)
+        for e, label in entity_to_classify:
+            if not e in object_set:
+                entity_to_classify.remove((e, label))
+
         print('\033[36m',"Remaining entities:", entity_to_classify,'\033[0m')
         print('\033[36m',"Remaining relations:", triplet_remaining,'\033[0m')
-
-
-    # # Step 2: Assign classes based on majority votes
-    # for entity, label in entities:
-    #     best_class = None
-    #     max_votes = 0
-
-    #     # Look at how often the entity appears in matched relations
-    #     for subj, rel, obj in matched_triplets:
-    #         if entity == subj and obj in ontology_classes:
-    #             if entity_votes[obj] > max_votes:
-    #                 best_class = obj
-    #                 max_votes = entity_votes[obj]
-    #         elif entity == obj and subj in ontology_classes:
-    #             if entity_votes[subj] > max_votes:
-    #                 best_class = subj
-    #                 max_votes = entity_votes[subj]
-
-    #     # Assign best class if found
-    #     if best_class:
-    #         entity_classes[entity] = best_class
 
     return entity_classes
 
@@ -240,7 +227,11 @@ def main():
     ontology_classes, ontology_properties, ontology_triplets = extract_ontology_triplets(ontology_graph)
 
     # Input text
+<<<<<<< HEAD
     text = "John Doe works for Acme Corp as a Project Manager and has been there for two years. He is skilled in Programming and Leadership and is currently working on Project X. He is also participating in the Tech Conference 2023. Alice Smith is employed by Tech Solutions as a Senior Data Scientist. She has skills in Data Analysis and Project Management and is involved in the AI Development project. She will attend the AI Summit next month. Bob Johnson is the Chief Technology Officer at Global Innovations. He has expertise in Machine Learning and Cloud Computing and is leading the Blockchain Initiative. He is a speaker at the Future Tech Expo. Acme Corp is located in New York and organizes the Tech Conference 2023. Tech Solutions has its headquarters in San Francisco and is hosting the AI Summit. Global Innovations operates from London and is planning the Future Tech Expo."
+=======
+    text = "Jeff was working for Amazon during 2 years. Jeff loves icecream. Amazon bought Twitch. Simon has a job in the company named Twitch."
+>>>>>>> 0b03342466f836be8ccc571f268dad1bc49b317f
 
     # Extract entities and relations
     entities, relations = extract_entities_and_relations(text)
