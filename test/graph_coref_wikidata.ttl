@@ -9,17 +9,15 @@ ns1:Alice_Millar a ns1:Person ;
     ns1:hasUrl "//www.wikidata.org/wiki/Q76035614" ;
     ns1:participatesIn ns1:AI_Summit .
 
-ns1:Bob_Johnson a ns1:Person ;
-    rdfs:label "Bob Johnson" ;
-    ns1:hasDescription "English footballer (1911-1982)" ;
-    ns1:hasUrl "//www.wikidata.org/wiki/Q4932940" ;
-    ns1:worksFor ns1:Global_innovations_in_payment_and_coverage .
+ns1:Future_Tech_Expo a ns1:Person ;
+    rdfs:label "Future Tech Expo" ;
+    ns1:participatesIn ns1:Bob_Johnson .
 
-ns1:John_Doe a ns1:Person ;
-    rdfs:label "John Doe" ;
-    ns1:hasDescription "American singer, songwriter, actor, poet, guitarist and bass player" ;
-    ns1:hasUrl "//www.wikidata.org/wiki/Q3181360" ;
-    ns1:worksFor ns1:Acme_Corporation .
+ns1:Vox a ns1:Organization ;
+    rdfs:label "Vox" ;
+    ns1:hasDescription "American news website" ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q20877087" ;
+    ns1:organizes ns1:John_Doe .
 
 ns1:machine_learning a ns1:Person ;
     rdfs:label "machine learning" ;
@@ -37,11 +35,23 @@ ns1:Acme_Corporation a ns1:Organization ;
     ns1:locatedIn ns1:New_York,
         ns1:San_Francisco .
 
+ns1:Bob_Johnson a ns1:Person ;
+    rdfs:label "Bob Johnson" ;
+    ns1:hasDescription "English footballer (1911-1982)" ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q4932940" ;
+    ns1:worksFor ns1:Global_innovations_in_payment_and_coverage .
+
 ns1:Global_innovations_in_payment_and_coverage a ns1:Organization ;
     rdfs:label "Global innovations in payment and coverage" ;
     ns1:hasDescription "scientific article published on 01 May 2008" ;
     ns1:hasUrl "//www.wikidata.org/wiki/Q81263417" ;
     ns1:locatedIn ns1:London .
+
+ns1:John_Doe a ns1:Person ;
+    rdfs:label "John Doe" ;
+    ns1:hasDescription "American singer, songwriter, actor, poet, guitarist and bass player" ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q3181360" ;
+    ns1:worksFor ns1:Acme_Corporation .
 
 ns1:London a ns1:Location ;
     rdfs:label "London" ;

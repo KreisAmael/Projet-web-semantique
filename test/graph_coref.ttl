@@ -7,17 +7,17 @@ ns1:Alice_Smith a ns1:Person ;
         ns1:Data_Scientist ;
     ns1:participatesIn ns1:AI_Summit .
 
-ns1:Bob_Johnson a ns1:Person ;
-    rdfs:label "Bob Johnson" ;
-    ns1:worksFor ns1:Global_Innovations .
-
-ns1:John_Doe a ns1:Person ;
-    rdfs:label "John Doe" ;
-    ns1:worksFor ns1:Acme_Corp .
+ns1:Future_Tech_Expo a ns1:Person ;
+    rdfs:label "Future Tech Expo" ;
+    ns1:participatesIn ns1:Bob_Johnson .
 
 ns1:Machine_Learning a ns1:Person ;
     rdfs:label "Machine Learning" ;
     ns1:worksOn ns1:Cloud_Computing .
+
+ns1:Project_X a ns1:Organization ;
+    rdfs:label "Project X" ;
+    ns1:organizes ns1:John_Doe .
 
 ns1:AI_Summit a ns1:Event ;
     rdfs:label "AI Summit" .
@@ -26,6 +26,10 @@ ns1:Acme_Corp a ns1:Organization ;
     rdfs:label "Acme Corp" ;
     ns1:locatedIn ns1:New_York,
         ns1:San_Francisco .
+
+ns1:Bob_Johnson a ns1:Person ;
+    rdfs:label "Bob Johnson" ;
+    ns1:worksFor ns1:Global_Innovations .
 
 ns1:Cloud_Computing a ns1:Project ;
     rdfs:label "Cloud Computing" .
@@ -39,6 +43,10 @@ ns1:Data_Scientist a ns1:Skill ;
 ns1:Global_Innovations a ns1:Organization ;
     rdfs:label "Global Innovations" ;
     ns1:locatedIn ns1:London .
+
+ns1:John_Doe a ns1:Person ;
+    rdfs:label "John Doe" ;
+    ns1:worksFor ns1:Acme_Corp .
 
 ns1:London a ns1:Location ;
     rdfs:label "London" .

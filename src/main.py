@@ -246,7 +246,7 @@ if __name__ == "__main__":
         output_path="test",
         rel_synonyms_path="test/rel_synonyms.json",
         batch_size=8,
-        call_wiki_data=True,
+        call_wiki_data=False,
         evaluationConfig = {
             "true_triplets_path" : "evaluation/true_triplets.json",
             "threshold" : 0.8
@@ -258,7 +258,7 @@ if __name__ == "__main__":
         },
         embeddingBaseSearcherConfig = {
             "model_name" : "sentence-transformers/all-mpnet-base-v2",
-            "threshold" : 0.5
+            "threshold" : 0.25
         }
     )
     kgCreator = KgCreator(
