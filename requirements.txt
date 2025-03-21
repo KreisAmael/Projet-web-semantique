@@ -1,0 +1,11 @@
+# Core dependencies
+#spacy-transformers 
+#spacy
+#sentence_transformers
+#rdflib
+
+crosslingual-coreference
+spacy-transformers 
+spacy
+numpy==1.26.4
+rdflib

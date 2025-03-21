@@ -1,0 +1,75 @@
+@prefix ns1: <http://output.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ns1:Alice_Millar a ns1:Person ;
+    rdfs:label "Alice Millar" ;
+    ns1:hasDescription "British peer (1863-1899)" ;
+    ns1:hasSkill ns1:data_analysis,
+        ns1:data_scientist ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q76035614" ;
+    ns1:participatesIn ns1:AI_Summit .
+
+ns1:Bob_Johnson a ns1:Person ;
+    rdfs:label "Bob Johnson" ;
+    ns1:hasDescription "English footballer (1911-1982)" ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q4932940" ;
+    ns1:worksFor ns1:Global_innovations_in_payment_and_coverage .
+
+ns1:John_Doe a ns1:Person ;
+    rdfs:label "John Doe" ;
+    ns1:hasDescription "American singer, songwriter, actor, poet, guitarist and bass player" ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q3181360" ;
+    ns1:worksFor ns1:Acme_Corporation .
+
+ns1:machine_learning a ns1:Person ;
+    rdfs:label "machine learning" ;
+    ns1:hasDescription "scientific study of algorithms and statistical models that computer systems use to perform tasks without explicit instructions" ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q2539" ;
+    ns1:worksOn ns1:cloud_computing .
+
+ns1:AI_Summit a ns1:Event ;
+    rdfs:label "AI Summit" .
+
+ns1:Acme_Corporation a ns1:Organization ;
+    rdfs:label "Acme Corporation" ;
+    ns1:hasDescription "fictional company" ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q288523" ;
+    ns1:locatedIn ns1:New_York,
+        ns1:San_Francisco .
+
+ns1:Global_innovations_in_payment_and_coverage a ns1:Organization ;
+    rdfs:label "Global innovations in payment and coverage" ;
+    ns1:hasDescription "scientific article published on 01 May 2008" ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q81263417" ;
+    ns1:locatedIn ns1:London .
+
+ns1:London a ns1:Location ;
+    rdfs:label "London" ;
+    ns1:hasDescription "capital and largest city of England and the United Kingdom" ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q84" .
+
+ns1:New_York a ns1:Location ;
+    rdfs:label "New York" ;
+    ns1:hasDescription "state of the United States of America" ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q1384" .
+
+ns1:San_Francisco a ns1:Location ;
+    rdfs:label "San Francisco" ;
+    ns1:hasDescription "consolidated city and county in California, United States" ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q62" .
+
+ns1:cloud_computing a ns1:Project ;
+    rdfs:label "cloud computing" ;
+    ns1:hasDescription "form of Internet-based computing, whereby shared resources, software and information are provided to computers and other devices" ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q483639" .
+
+ns1:data_analysis a ns1:Skill ;
+    rdfs:label "data analysis" ;
+    ns1:hasDescription "activity for gaining insight from data" ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q1988917" .
+
+ns1:data_scientist a ns1:Skill ;
+    rdfs:label "data scientist" ;
+    ns1:hasDescription "person studying and working with data" ;
+    ns1:hasUrl "//www.wikidata.org/wiki/Q29169143" .
+

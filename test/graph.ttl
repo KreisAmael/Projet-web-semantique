@@ -1,0 +1,53 @@
+@prefix ns1: <http://output.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ns1:Alice_Smith a ns1:Person ;
+    rdfs:label "Alice Smith" ;
+    ns1:hasSkill ns1:Data_Scientist .
+
+ns1:Bob_Johnson a ns1:Person ;
+    rdfs:label "Bob Johnson" ;
+    ns1:worksFor ns1:Global_Innovations .
+
+ns1:Data_Analysis a ns1:Person ;
+    rdfs:label "Data Analysis" ;
+    ns1:worksOn ns1:Project_Management .
+
+ns1:John_Doe a ns1:Person ;
+    rdfs:label "John Doe" ;
+    ns1:worksFor ns1:Acme_Corp .
+
+ns1:Machine_Learning a ns1:Person ;
+    rdfs:label "Machine Learning" ;
+    ns1:worksOn ns1:Cloud_Computing .
+
+ns1:Tech_Solutions a ns1:Organization ;
+    rdfs:label "Tech Solutions" ;
+    ns1:locatedIn ns1:San_Francisco .
+
+ns1:Acme_Corp a ns1:Organization ;
+    rdfs:label "Acme Corp" ;
+    ns1:locatedIn ns1:New_York .
+
+ns1:Cloud_Computing a ns1:Project ;
+    rdfs:label "Cloud Computing" .
+
+ns1:Data_Scientist a ns1:Skill ;
+    rdfs:label "Data Scientist" .
+
+ns1:Global_Innovations a ns1:Organization ;
+    rdfs:label "Global Innovations" ;
+    ns1:locatedIn ns1:London .
+
+ns1:London a ns1:Location ;
+    rdfs:label "London" .
+
+ns1:New_York a ns1:Location ;
+    rdfs:label "New York" .
+
+ns1:Project_Management a ns1:Project ;
+    rdfs:label "Project Management" .
+
+ns1:San_Francisco a ns1:Location ;
+    rdfs:label "San Francisco" .
+

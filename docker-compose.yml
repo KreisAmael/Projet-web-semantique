@@ -1,0 +1,15 @@
+services:
+# decision backend service
+  semantic-searcher-app:
+    container_name: semantic-searcher-app
+    build:
+        context: .
+        dockerfile: semanticSearcherApp/Dockerfile.semanticSearcherApp
+    restart: always
+    stdin_open: true
+    tty: true
+    ports:
+      - "8000:8000"
+    
+ 
+ 

@@ -1,0 +1,22 @@
+[
+    {
+        "subject": "Alice Smith",
+        "property_type": "worksFor",
+        "object": "Senior Data Scientist"
+    },
+    {
+        "subject": "Global Innovations",
+        "property_type": "locatedIn",
+        "object": "London"
+    },
+    {
+        "subject": "John Doe",
+        "property_type": "worksFor",
+        "object": "Acme Corp"
+    },
+    {
+        "subject": "Acme Corp",
+        "property_type": "locatedIn",
+        "object": "New York"
+    }
+]

@@ -1,0 +1,42 @@
+[
+    {
+        "subject": "John Doe",
+        "property_type": "worksFor",
+        "object": "Acme Corp"
+    },
+    {
+        "subject": "Alice Smith",
+        "property_type": "hasSkill",
+        "object": "Data Scientist"
+    },
+    {
+        "subject": "Data Analysis",
+        "property_type": "worksOn",
+        "object": "Project Management"
+    },
+    {
+        "subject": "Bob Johnson",
+        "property_type": "worksFor",
+        "object": "Global Innovations"
+    },
+    {
+        "subject": "Machine Learning",
+        "property_type": "worksOn",
+        "object": "Cloud Computing"
+    },
+    {
+        "subject": "Acme Corp",
+        "property_type": "locatedIn",
+        "object": "New York"
+    },
+    {
+        "subject": "Tech Solutions",
+        "property_type": "locatedIn",
+        "object": "San Francisco"
+    },
+    {
+        "subject": "Global Innovations",
+        "property_type": "locatedIn",
+        "object": "London"
+    }
+]

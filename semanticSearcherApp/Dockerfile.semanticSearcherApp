@@ -1,0 +1,13 @@
+# Use Python 3.10 slim image
+FROM python:3.10-slim
+
+# Copy the requirements file and install dependencies
+COPY ./semanticSearcherApp/requirements.txt requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
+# Copy the rest of the application code
+COPY ./semanticSearcherApp ./
+# Healthcheck to monitor the application
+HEALTHCHECK CMD ["curl", "--fail", "http://localhost:8000", "||", "exit 1"]
+
+# Command to run the FastAPI app
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
