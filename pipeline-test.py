@@ -227,11 +227,7 @@ def main():
     ontology_classes, ontology_properties, ontology_triplets = extract_ontology_triplets(ontology_graph)
 
     # Input text
-<<<<<<< HEAD
     text = "John Doe works for Acme Corp as a Project Manager and has been there for two years. He is skilled in Programming and Leadership and is currently working on Project X. He is also participating in the Tech Conference 2023. Alice Smith is employed by Tech Solutions as a Senior Data Scientist. She has skills in Data Analysis and Project Management and is involved in the AI Development project. She will attend the AI Summit next month. Bob Johnson is the Chief Technology Officer at Global Innovations. He has expertise in Machine Learning and Cloud Computing and is leading the Blockchain Initiative. He is a speaker at the Future Tech Expo. Acme Corp is located in New York and organizes the Tech Conference 2023. Tech Solutions has its headquarters in San Francisco and is hosting the AI Summit. Global Innovations operates from London and is planning the Future Tech Expo."
-=======
-    text = "Jeff was working for Amazon during 2 years. Jeff loves icecream. Amazon bought Twitch. Simon has a job in the company named Twitch."
->>>>>>> 0b03342466f836be8ccc571f268dad1bc49b317f
 
     # Extract entities and relations
     entities, relations = extract_entities_and_relations(text)
