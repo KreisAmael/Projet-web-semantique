@@ -1,1 +1,11 @@
-{"hasRole": 0.0, "worksFor": 66.66666666666666, "locatedIn": 66.66666666666666, "hasSkill": 16.666666666666664, "participatesIn": 33.33333333333333, "organizes": 0.0, "hasDuration": 0.0, "worksOn": 0.0, "mean_accuracy": 22.916666666666664}
+{
+    "hasRole": 0,
+    "worksFor": 66.66666666666666,
+    "locatedIn": 66.66666666666666,
+    "hasSkill": 16.666666666666664,
+    "participatesIn": 33.33333333333333,
+    "organizes": 0,
+    "hasDuration": 0,
+    "worksOn": 0,
+    "mean_accuracy": 22.916666666666664
+}
