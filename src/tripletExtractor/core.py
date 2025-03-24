@@ -1,6 +1,7 @@
-import tripletExtractor.spacy_component
+import tripletExtractor.spacy_component # init don't remove
 import spacy
-import crosslingual_coreference
+import crosslingual_coreference # init don't remove
+from crosslingual_coreference.CorefResolver import CorefResolver as Resolver
 
 class TripletProducer():
     def __init__(self, spacy_model : str, device : int = -1, compute_coref : bool = True, unknown_entity : str = "Unknown"):
@@ -12,6 +13,7 @@ class TripletProducer():
         """
         # fo NER
         self.nlp = spacy.load(spacy_model, disable=['tagger', 'parser', 'attribute_ruler', 'lemmatizer'])
+
         # system of coref, update non explicit subject using coreference
         self.compute_coref = compute_coref
         if self.compute_coref:
@@ -24,6 +26,7 @@ class TripletProducer():
                     "device": device
                 }
             )
+            self.resolver = Resolver()
         
             
         # Define rel extraction model
@@ -46,10 +49,57 @@ class TripletProducer():
         # suppose we don't have same Texte et differents labels !
         # map subjects using coref
         if self.compute_coref:
-            input_text = self.coref(input_text)._.resolved_text
-            res["coref_text"] = input_text
-            
+            coref_doc = self.coref(input_text)
+            input_text = coref_doc._.resolved_text
+            res['coref_text'] = input_text
              
+            """ # kill spans in clustsers which are NER but replaced with a new Span
+            heads = coref_doc._.cluster_heads # spans of references
+            clusters = coref_doc._.coref_clusters.copy() # replaced spans
+            to_replaced = {}
+            print("before")
+            for i, (head, span) in enumerate(heads.items()):
+                map= ""
+                for j, replaced_span in enumerate(clusters[i]):
+                    new_cluster = clusters[i].copy()
+                    start, end = replaced_span[0], replaced_span[1]
+                    span_text = doc.text[start:end]
+                    map += span_text + " ,"
+                    if span_text != head and span_text in entities_types:
+                        new_cluster = clusters[i][:j] # we kill also all replaced after even not NER
+                        #break
+                    else:
+                        to_replaced[start] = (end-start, head)
+                    clusters[i] = new_cluster
+                print(f"{head} : {map}")
+            print("-"*100)"""
+             
+
+            """print("after")
+            for i, (head, span) in enumerate(heads.items()):
+                map= ""
+                for j, replaced_span in enumerate(clusters[i]):
+                    start, end = replaced_span[0], replaced_span[1]
+                    span_text = doc.text[start:end]
+                    map += span_text + " ,"
+                print(f"{head} : {map}")
+
+            
+            print(clusters)"""
+            #out =  self.resolver.replace_corefs(coref_doc, [clusters])
+             
+            """new_text = ""
+            i = 0
+            while i < len(input_text):
+                if i in to_replaced:
+                    new_text += to_replaced[i][1]
+                    i += to_replaced[i][0]
+                else:
+                    new_text += input_text[i]
+                    i += 1
+            print(new_text)
+            self.d"""
+            
             
         # extract triplets (entities implies in a relation | relations)
         doc = self.rel_ext(input_text)

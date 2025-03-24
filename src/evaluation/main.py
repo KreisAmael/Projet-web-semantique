@@ -64,9 +64,9 @@ def get_predicitons(true_triplets : list, predicted_triplets : list, threshold :
 
 
 
-def compute_evaluation(name : str, property_types : list, true_triplets : list, predicted_triplets : list, threshold : float = 0.8):
+def compute_evaluation(output_path : str, property_types : list, true_triplets : list, predicted_triplets : list, threshold : float = 0.8):
     evaluation = {}
-    mean_accuracy = 0
+    mean_recall = 0
     for property_type in property_types:
         # get all for this type
         current_true_triplets = [t for t in true_triplets if t['property_type'] == property_type]
@@ -74,20 +74,15 @@ def compute_evaluation(name : str, property_types : list, true_triplets : list, 
             continue
         current_predicted_triplets = [t for t in predicted_triplets if t['property_type'] == property_type]
         acc = get_predicitons(current_true_triplets, current_predicted_triplets, threshold=threshold)*100
-        mean_accuracy += acc 
+        mean_recall += acc 
         evaluation[property_type] = acc
-    evaluation["mean_accuracy"] = mean_accuracy / len(property_types)
+    evaluation["mean_recall"] = mean_recall / len(property_types)
 
-    output_file = open(os.path.join("evaluation", f"{name}_evaluation.json"), "w")
+    os.makedirs(output_path, exist_ok=True)
+    output_path = os.path.join(output_path, "evaluation.json")
+    output_file = open(output_path, "w")
     json.dump(evaluation, output_file)
     output_file.close()
     return evaluation
 
-
-"""true_triplets = json.load(open("evaluation/true_triplets.json", encoding='utf-8'))
-predicted_triplets = json.load(open("evaluation/graph_1.json", encoding='utf-8'))
-name = 'graph_1'
-threshold = 0.8
-property_names = ['participatesIn', 'worksFor', 'hasRole', 'worksOn', 'organizes', 'hasSkill', 'hasDuration', 'locatedIn']
-
-compute_evaluation(name, property_names, true_triplets, predicted_triplets, threshold)"""
+ 

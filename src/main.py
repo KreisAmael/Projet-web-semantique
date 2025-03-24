@@ -5,7 +5,7 @@ from baseModels import KgCreatorConfig
 import logging
 import json
 from threading import Thread
-from rdflib import Graph, URIRef, Literal, Namespace
+from rdflib import Graph, Literal, Namespace
 from rdflib.namespace import RDF, RDFS
 from utils import load_rdf_graph, call_wiki_api, extract_ontology_triplets
 from tqdm import tqdm
@@ -219,12 +219,9 @@ class KgCreator():
         
         
         if self.evaluationConfig:
-            """output_file = open(os.path.join("evaluation", graph_name.replace("ttl", "json")), "w")
-            json.dump(final_triplets, output_file)
-            output_file.close()"""
             true_triplets = json.load(open(self.evaluationConfig.true_triplets_path, encoding='utf-8'))
             output_eval = compute_evaluation(
-                name=graph_name.replace(".ttl", ""),
+                output_path=self.output_path,
                 property_types=self.property_names,
                 true_triplets=true_triplets,
                 predicted_triplets=final_triplets,
@@ -240,21 +237,34 @@ class KgCreator():
         return new_graph
     
 if __name__ == "__main__":
+
+    compute_coref=False
+    call_wiki_data=True
+
+    output_name = "output"
+    if compute_coref:
+        output_name += "_coref"
+    if call_wiki_data:
+        output_name += "_wikidata"
+
+    output_path = os.path.join("test", output_name)
+    os.makedirs(output_path, exist_ok=True)
+
     config = KgCreatorConfig(
         input_path="test/test.json",
         ontology_path="test/ontology.ttl",
-        output_path="test",
+        output_path=output_path,
         rel_synonyms_path="test/rel_synonyms.json",
         batch_size=8,
-        call_wiki_data=False,
+        call_wiki_data=call_wiki_data,
         evaluationConfig = {
-            "true_triplets_path" : "evaluation/true_triplets.json",
+            "true_triplets_path" : "test/true_triplets.json",
             "threshold" : 0.8
         },
         tripletExtractorConfig = {
             "spacy_model":"en_core_web_lg",
             "device":-1,
-            "compute_coref": False
+            "compute_coref": compute_coref
         },
         embeddingBaseSearcherConfig = {
             "model_name" : "sentence-transformers/all-mpnet-base-v2",
